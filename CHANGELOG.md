@@ -1,3 +1,13 @@
+## 0.1.3 (2025-09-22)
+
+### 🩹 Fixes
+
+- public false ([6324045](https://github.com/mandarini/repro-nx-release/commit/6324045))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou
+
 ## 0.1.2 (2025-09-22)
 
 ### 🩹 Fixes
