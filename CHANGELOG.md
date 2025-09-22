@@ -1,3 +1,15 @@
+## 0.1.2 (2025-09-22)
+
+### 🩹 Fixes
+
+- versions to auto ([dfa0da6](https://github.com/mandarini/repro-nx-release/commit/dfa0da6))
+- readme ([d131c9e](https://github.com/mandarini/repro-nx-release/commit/d131c9e))
+- main ([69bd0ae](https://github.com/mandarini/repro-nx-release/commit/69bd0ae))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou
+
 ## 0.1.1 (2025-09-22)
 
 ### 🩹 Fixes
