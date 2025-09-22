@@ -2,7 +2,9 @@
   "name": "@repro-release/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "release": "npx nx run-many --target=build --all && tsx scripts/release.ts"
+  },
   "private": true,
   "dependencies": {},
   "devDependencies": {
@@ -27,10 +29,24 @@
     "ts-jest": "^29.4.0",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
-    "typescript-eslint": "^8.40.0"
+    "typescript-eslint": "^8.40.0",
+    "verdaccio": "^6.0.5"
   },
   "workspaces": [
     "packages/*",
     "packages/core/*"
-  ]
+  ],
+  "nx": {
+    "includedScripts": [],
+    "targets": {
+      "local-registry": {
+        "executor": "@nx/js:verdaccio",
+        "options": {
+          "port": 4873,
+          "config": ".verdaccio/config.yml",
+          "storage": "tmp/local-registry/storage"
+        }
+      }
+    }
+  }
 }

@@ -45,6 +45,53 @@
   "targetDefaults": {
     "test": {
       "dependsOn": ["^build"]
+    },
+    "nx-release-publish": {
+      "options": {
+        "tag": "canary",
+        "packageRoot": "build/{projectRoot}",
+        "skipLockFileUpdate": true
+      }
+    },
+    "nx-release-version": {
+      "options": {
+        "packageRoot": "build/{projectRoot}",
+        "specifierSource": "conventional-commits",
+        "currentVersionResolver": "git-tag",
+        "skipLockFileUpdate": true
+      }
+    },
+    "nx-release-changelog": {
+      "options": {
+        "packageRoot": "build/{projectRoot}",
+        "skipLockFileUpdate": true
+      }
+    }
+  },
+  "release": {
+    "projects": ["packages/core/*"],
+    "projectsRelationship": "fixed",
+    "version": {
+      "conventionalCommits": true
+    },
+    "changelog": {
+      "projectChangelogs": {
+        "renderOptions": {
+          "authors": true,
+          "mapAuthorsToGitHubUsernames": true,
+          "versionTitleDate": true,
+          "commitReferences": true
+        }
+      },
+      "workspaceChangelog": {
+        "createRelease": "github",
+        "renderOptions": {
+          "authors": true,
+          "mapAuthorsToGitHubUsernames": true,
+          "versionTitleDate": true,
+          "commitReferences": true
+        }
+      }
     }
   }
 }
