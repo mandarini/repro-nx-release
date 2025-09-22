@@ -2,5 +2,24 @@
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
   "files": [],
-  "references": []
+  "references": [
+    {
+      "path": "./packages/core/lib1"
+    },
+    {
+      "path": "./packages/core/lib3"
+    },
+    {
+      "path": "./packages/core/lib2"
+    },
+    {
+      "path": "./packages/core/lib4"
+    },
+    {
+      "path": "./packages/core/lib5"
+    },
+    {
+      "path": "./packages/core/main"
+    }
+  ]
 }
