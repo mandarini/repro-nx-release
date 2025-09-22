@@ -63,6 +63,7 @@ async function copyChangelogFiles() {
 
   const { workspaceVersion, projectsVersionData } = await releaseVersion({
     verbose: true,
+    firstRelease: true,
   });
 
   console.log('workspaceVersion', workspaceVersion);
@@ -72,6 +73,7 @@ async function copyChangelogFiles() {
     versionData: projectsVersionData,
     version: workspaceVersion,
     verbose: true,
+    firstRelease: true,
   });
 
   await copyChangelogFiles();
@@ -81,6 +83,7 @@ async function copyChangelogFiles() {
     registry: 'http://localhost:4873',
     access: 'public',
     verbose: true,
+    firstRelease: true,
   });
   process.exit(
     Object.values(publishResult).every((result) => result.code === 0) ? 0 : 1
