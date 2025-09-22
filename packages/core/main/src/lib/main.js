@@ -10,5 +10,5 @@ export function main() {
   console.log(lib3());
   console.log(lib4());
   console.log(lib5());
-  return 'main';
+  return 'main is here';
 }
