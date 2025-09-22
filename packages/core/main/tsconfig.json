@@ -4,6 +4,21 @@
   "include": [],
   "references": [
     {
+      "path": "../lib5"
+    },
+    {
+      "path": "../lib4"
+    },
+    {
+      "path": "../lib3"
+    },
+    {
+      "path": "../lib2"
+    },
+    {
+      "path": "../lib1"
+    },
+    {
       "path": "./tsconfig.lib.json"
     }
   ]

@@ -11,5 +11,21 @@
     "types": ["node"]
   },
   "include": ["src/**/*.ts", "src/**/*.js"],
-  "references": []
+  "references": [
+    {
+      "path": "../lib5/tsconfig.lib.json"
+    },
+    {
+      "path": "../lib4/tsconfig.lib.json"
+    },
+    {
+      "path": "../lib3/tsconfig.lib.json"
+    },
+    {
+      "path": "../lib2/tsconfig.lib.json"
+    },
+    {
+      "path": "../lib1/tsconfig.lib.json"
+    }
+  ]
 }
