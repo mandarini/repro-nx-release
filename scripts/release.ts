@@ -13,13 +13,21 @@ import { exec } from 'child_process';
   console.log('workspaceVersion', workspaceVersion);
   console.log('projectsVersionData', projectsVersionData);
 
-  await releaseChangelog({
+  const result = await releaseChangelog({
     versionData: projectsVersionData,
     version: workspaceVersion,
     verbose: true,
     gitCommit: false,
     stageChanges: false,
   });
+
+  console.log('result', result);
+
+  // execute git add for files that are in the pattern of CHANGELOG.md in root and in subfolders
+  exec('git add CHANGELOG.md');
+  exec('git add packages/**/CHANGELOG.md');
+  exec('git commit -m "chore: update changelog"');
+  exec('git push');
 
   const publishResult = await releasePublish({
     // registry: 'https://registry.npmjs.org/',
@@ -28,6 +36,9 @@ import { exec } from 'child_process';
     tag: 'canary',
     verbose: true,
   });
+
+  exec('git stash');
+
   process.exit(
     Object.values(publishResult).every((result) => result.code === 0) ? 0 : 1
   );
