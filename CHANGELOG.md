@@ -1,3 +1,13 @@
+## 0.8.1-canary.0 (2025-09-23)
+
+### 🩹 Fixes
+
+- restore package versions ([1127437](https://github.com/mandarini/repro-nx-release/commit/1127437))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou
+
 ## 0.8.0 (2025-09-23)
 
 This was a version bump only, there were no code changes.
