@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "release": "tsx scripts/release.ts"
+    "release": "tsx scripts/release.ts",
+    "local-registry": "npx nx run-many --target=local-registry --all"
   },
   "private": true,
   "devDependencies": {
