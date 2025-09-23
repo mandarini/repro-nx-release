@@ -1,3 +1,13 @@
+## 0.5.3-canary.5 (2025-09-23)
+
+### 🚀 Features
+
+- remove tag from nx.json ([d60eb31](https://github.com/mandarini/repro-nx-release/commit/d60eb31))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou
+
 ## 0.5.3-canary.4 (2025-09-23)
 
 ### 🚀 Features
