@@ -17,6 +17,8 @@ import { exec } from 'child_process';
     versionData: projectsVersionData,
     version: workspaceVersion,
     verbose: true,
+    gitCommit: false,
+    stageChanges: false,
   });
 
   const publishResult = await releasePublish({
