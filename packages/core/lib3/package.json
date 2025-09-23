@@ -1,6 +1,6 @@
 {
   "name": "@repro-release/lib3",
-  "version": "0.5.3-canary.6",
+  "version": "0.7.0",
   "private": false,
   "type": "module",
   "main": "./dist/index.js",
