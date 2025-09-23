@@ -48,8 +48,7 @@
     },
     "nx-release-publish": {
       "options": {
-        "skipLockFileUpdate": true,
-        "tag": "canary"
+        "skipLockFileUpdate": true
       }
     },
     "nx-release-version": {
