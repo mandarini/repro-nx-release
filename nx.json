@@ -67,6 +67,7 @@
     "projects": ["packages/core/*"],
     "projectsRelationship": "fixed",
     "version": {
+      "preVersionCommand": "npx nx run-many --target=build --all",
       "conventionalCommits": true
     },
     "changelog": {
