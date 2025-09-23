@@ -1,3 +1,13 @@
+## 0.7.1-canary.0 (2025-09-23)
+
+### 🩹 Fixes
+
+- restore versions ([89f65f0](https://github.com/mandarini/repro-nx-release/commit/89f65f0))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou
+
 ## 0.7.0 (2025-09-23)
 
 This was a version bump only for lib5 to align it with other projects, there were no code changes.
