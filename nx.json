@@ -65,6 +65,7 @@
   "release": {
     "projects": ["packages/core/*"],
     "projectsRelationship": "fixed",
+    "releaseTagPatternCheckAllBranchesWhen": true,
     "version": {
       "preVersionCommand": "npx nx run-many --target=build --all",
       "conventionalCommits": true

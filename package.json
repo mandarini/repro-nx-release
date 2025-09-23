@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "release": "tsx scripts/release.ts",
-    "local-registry": "npx nx run-many --target=local-registry --all",
-    "hello": "echo 'hello'"
+    "release-canary": "tsx scripts/release-canary.ts",
+    "release-stable": "tsx scripts/release-stable.ts",
+    "local-registry": "npx nx run-many --target=local-registry --all"
   },
   "private": true,
   "devDependencies": {
