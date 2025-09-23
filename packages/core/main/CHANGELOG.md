@@ -1,3 +1,13 @@
+## 0.4.0 (2025-09-23)
+
+### 🚀 Features
+
+- hello ([a42d385](https://github.com/mandarini/repro-nx-release/commit/a42d385))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou
+
 ## 0.3.0 (2025-09-23)
 
 This was a version bump only for main to align it with other projects, there were no code changes.
