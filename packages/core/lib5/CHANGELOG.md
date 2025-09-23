@@ -1,3 +1,7 @@
+# 1.0.0 (2025-09-23)
+
+This was a version bump only for lib5 to align it with other projects, there were no code changes.
+
 ## 0.8.1-canary.0 (2025-09-23)
 
 ### 🩹 Fixes
