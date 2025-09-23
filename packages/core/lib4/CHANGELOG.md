@@ -1,3 +1,7 @@
+## 0.5.3-canary.2 (2025-09-23)
+
+This was a version bump only for lib4 to align it with other projects, there were no code changes.
+
 ## 0.5.3-canary.1 (2025-09-23)
 
 This was a version bump only for lib4 to align it with other projects, there were no code changes.
