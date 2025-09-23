@@ -1,3 +1,13 @@
+## 0.5.3-canary.0 (2025-09-23)
+
+### 🚀 Features
+
+- conmmit ([7e297ab](https://github.com/mandarini/repro-nx-release/commit/7e297ab))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou
+
 ## 0.5.2 (2025-09-23)
 
 ### 🩹 Fixes
