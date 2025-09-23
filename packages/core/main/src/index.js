@@ -1,3 +1,3 @@
 export * from './lib/main.js';
 
-console.log('mai adgfasdfn');
+console.log('mai adgfasdfdfsdfgn');
