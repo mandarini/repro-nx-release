@@ -1,3 +1,3 @@
 export * from './lib/main.js';
 
-console.log('main');
+console.log('mai adgfasdfn');
