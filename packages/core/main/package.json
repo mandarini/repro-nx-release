@@ -1,6 +1,6 @@
 {
   "name": "@repro-release/main",
-  "version": "0.7.0",
+  "version": "0.0.0-automated",
   "private": false,
   "type": "module",
   "main": "./dist/index.js",
@@ -20,10 +20,10 @@
   },
   "dependencies": {
     "tslib": "^2.3.0",
-    "@repro-release/lib1": "0.7.0",
-    "@repro-release/lib2": "0.7.0",
-    "@repro-release/lib3": "0.7.0",
-    "@repro-release/lib4": "0.7.0",
-    "@repro-release/lib5": "0.7.0"
+    "@repro-release/lib1": "*",
+    "@repro-release/lib2": "*",
+    "@repro-release/lib3": "*",
+    "@repro-release/lib4": "*",
+    "@repro-release/lib5": "*"
   }
 }
