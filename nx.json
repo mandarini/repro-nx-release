@@ -48,22 +48,16 @@
     },
     "nx-release-publish": {
       "options": {
-        "tag": "canary",
-        "packageRoot": "build/{projectRoot}",
         "skipLockFileUpdate": true
       }
     },
     "nx-release-version": {
       "options": {
-        "packageRoot": "build/{projectRoot}",
-        "specifierSource": "conventional-commits",
-        "currentVersionResolver": "git-tag",
         "skipLockFileUpdate": true
       }
     },
     "nx-release-changelog": {
       "options": {
-        "packageRoot": "build/{projectRoot}",
         "skipLockFileUpdate": true
       }
     }

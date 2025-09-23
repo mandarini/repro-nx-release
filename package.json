@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "release": "npx nx run-many --target=build --all && tsx scripts/release.ts"
+    "release": "tsx scripts/release.ts"
   },
   "private": true,
   "dependencies": {},
