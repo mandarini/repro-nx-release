@@ -67,8 +67,7 @@
     "projects": ["packages/core/*"],
     "projectsRelationship": "fixed",
     "version": {
-      "conventionalCommits": true,
-      "fallbackCurrentVersionResolver": "disk"
+      "conventionalCommits": true
     },
     "changelog": {
       "projectChangelogs": {
