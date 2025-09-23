@@ -1,3 +1,7 @@
+## 0.8.0 (2025-09-23)
+
+This was a version bump only, there were no code changes.
+
 ## 0.7.1-canary.0 (2025-09-23)
 
 ### 🚀 Features
