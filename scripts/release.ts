@@ -22,6 +22,13 @@ import { exec } from 'child_process';
   });
 
   console.log('result', result);
+  console.log(
+    'versions',
+    result.workspaceChangelog?.releaseVersion.rawVersion,
+    result.workspaceChangelog?.releaseVersion.gitTag
+  );
+
+  console.log('versions proj', result.projectChangelogs?.['lib1']?.releaseVersion);
 
   // execute git add for files that are in the pattern of CHANGELOG.md in root and in subfolders
   exec('git add CHANGELOG.md');
