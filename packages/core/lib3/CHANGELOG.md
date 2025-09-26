@@ -1,3 +1,7 @@
+## 0.1.4 (2025-09-26)
+
+This was a version bump only for lib3 to align it with other projects, there were no code changes.
+
 ## 0.1.3 (2025-09-22)
 
 ### 🩹 Fixes

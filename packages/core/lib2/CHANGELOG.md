@@ -1,3 +1,13 @@
+## 0.1.4 (2025-09-26)
+
+### 🩹 Fixes
+
+- added a log ([186c5fc](https://github.com/mandarini/repro-nx-release/commit/186c5fc))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou
+
 ## 0.1.3 (2025-09-22)
 
 ### 🩹 Fixes
