@@ -1,3 +1,22 @@
+## 1.4.0 (2026-04-02)
+
+### 🚀 Features
+
+- hello 0 ([#14](https://github.com/mandarini/repro-nx-release/pull/14))
+- hello 1 ([#15](https://github.com/mandarini/repro-nx-release/pull/15))
+
+### 🩹 Fixes
+
+- add log 2 ([#11](https://github.com/mandarini/repro-nx-release/pull/11))
+- add log 4 ([#10](https://github.com/mandarini/repro-nx-release/pull/10))
+- hello 5 ([#12](https://github.com/mandarini/repro-nx-release/pull/12))
+- hello 7 ([#13](https://github.com/mandarini/repro-nx-release/pull/13))
+- hello 9 ([#16](https://github.com/mandarini/repro-nx-release/pull/16))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou @mandarini
+
 # 1.0.0 (2025-09-23)
 
 ### 🚀 Features

@@ -1,3 +1,13 @@
+## 1.4.0 (2026-04-02)
+
+### 🩹 Fixes
+
+- hello 7 ([#13](https://github.com/mandarini/repro-nx-release/pull/13))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou @mandarini
+
 # 1.0.0 (2025-09-23)
 
 This was a version bump only for lib2 to align it with other projects, there were no code changes.
