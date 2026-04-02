@@ -1,3 +1,7 @@
+## 1.5.0 (2026-04-02)
+
+This was a version bump only for lib2 to align it with other projects, there were no code changes.
+
 # 1.0.0 (2025-09-23)
 
 This was a version bump only for lib2 to align it with other projects, there were no code changes.
