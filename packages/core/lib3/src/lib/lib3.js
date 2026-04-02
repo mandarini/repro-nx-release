@@ -3,3 +3,4 @@ export function lib3() {
 }
 
 console.log('lib3');
+console.log('lib3');
