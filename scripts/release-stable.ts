@@ -1,16 +1,7 @@
 import { releaseVersion, releaseChangelog, releasePublish } from 'nx/release';
 import { execSync } from 'child_process';
-
-function getArg(name: string): string | undefined {
-  // supports --name=value and --name value
-  const idx = process.argv.findIndex(
-    (a) => a === `--${name}` || a.startsWith(`--${name}=`)
-  );
-  if (idx === -1) return undefined;
-  const token = process.argv[idx];
-  if (token.includes('=')) return token.split('=')[1];
-  return process.argv[idx + 1]; // next token
-}
+import { writeFile } from 'fs/promises';
+import { getLastStableTag, getArg } from './utils';
 
 const versionSpecifier = getArg('versionSpecifier') ?? process.argv[2]; // optional positional fallback
 
@@ -22,6 +13,32 @@ if (!versionSpecifier) {
       `  --versionSpecifier v2.3.4 (explicit version)\n`
   );
   process.exit(1);
+}
+
+// Validate versionSpecifier to prevent command injection
+const validSpecifiers = [
+  'patch',
+  'minor',
+  'major',
+  'prepatch',
+  'preminor',
+  'premajor',
+  'prerelease',
+];
+const isValidVersion = /^v?\d+\.\d+\.\d+(-[a-zA-Z0-9.-]+)?$/.test(versionSpecifier);
+if (!validSpecifiers.includes(versionSpecifier) && !isValidVersion) {
+  console.error(`❌ Invalid version specifier: ${versionSpecifier}`);
+  console.error(`Must be one of: ${validSpecifiers.join(', ')} or a valid semver version`);
+  process.exit(1);
+}
+
+function safeExec(cmd: string, opts = {}) {
+  try {
+    return execSync(cmd, { stdio: 'inherit', ...opts });
+  } catch (err) {
+    console.error(`❌ Command failed: ${cmd}`);
+    throw err;
+  }
 }
 
 (async () => {
@@ -38,6 +55,7 @@ if (!versionSpecifier) {
     verbose: true,
     gitCommit: false,
     stageChanges: false,
+    from: getLastStableTag(),
   });
 
   const publishResult = await releasePublish({
@@ -47,35 +65,51 @@ if (!versionSpecifier) {
     verbose: true,
   });
 
-  // ---- New: create release branch + PR ----
-  const version =
-    result.workspaceChangelog?.releaseVersion.rawVersion || workspaceVersion;
+  const version = result.workspaceChangelog?.releaseVersion.rawVersion || workspaceVersion;
+
+  // Write version to file for CI to read
+  try {
+    await writeFile('.release-version', version ?? '', 'utf-8');
+  } catch (error) {
+    console.error('❌ Failed to write release version to file', error);
+  }
+
+  // Validate version to prevent command injection
+  if (
+    !version ||
+    !/^(v?\d+\.\d+\.\d+(-[a-zA-Z0-9.-]+)?|patch|minor|major|prepatch|preminor|premajor|prerelease)$/.test(
+      version
+    )
+  ) {
+    console.error(`❌ Invalid version format: ${version}`);
+    process.exit(1);
+  }
+
   const branchName = `release-${version}`;
 
   try {
-    execSync(`git checkout -b ${branchName}`);
-    execSync('git add CHANGELOG.md || true');
-    execSync('git add packages/**/CHANGELOG.md || true');
+    safeExec(`git checkout -b ${branchName}`);
+    safeExec('git add CHANGELOG.md || true');
+    safeExec('git add packages/**/CHANGELOG.md || true');
 
     // Commit changes if any
     try {
-      execSync(`git commit -m "chore(release): publish version ${version}"`);
+      safeExec(`git commit -m "chore(release): version ${version} changelogs"`);
     } catch {
       console.log('No changes to commit');
     }
 
-    execSync(`git push origin ${branchName}`);
+    safeExec(`git push origin ${branchName}`);
 
     // Open PR using GitHub CLI
-    execSync(
-      `gh pr create --base main --head ${branchName} --title "chore(release): ${version}" --body "Automated release PR for ${version}"`,
-      { stdio: 'inherit' }
+    safeExec(
+      `gh pr create --base main --head ${branchName} --title "chore(release): version ${version} changelogs" --body "Automated PR to update changelogs for version ${version}."`
     );
 
     // Enable auto-merge
-    execSync(`gh pr merge --auto --squash`, { stdio: 'inherit' });
+    safeExec(`gh pr merge --auto --squash`);
 
-    execSync('git stash');
+    safeExec('git stash');
     console.log('✅ Stashed package.json changes');
   } catch (err) {
     console.error('❌ Failed to push release branch or open PR', err);

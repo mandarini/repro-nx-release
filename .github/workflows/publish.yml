@@ -1,0 +1,163 @@
+name: Publish releases
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - '*.md'
+      - 'docs/**'
+      - '**/CHANGELOG.md'
+  workflow_dispatch:
+    inputs:
+      version_specifier:
+        description: 'Stable: semver bump (patch|minor|major|pre*) or exact version (v1.2.3)'
+        required: false
+        type: string
+      beta_version:
+        description: 'Beta: explicit prerelease version (e.g. 2.101.0-beta.0). Select your feature branch above.'
+        required: false
+        type: string
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  release-stable:
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.version_specifier != '' }}
+    runs-on: ubuntu-latest
+    outputs:
+      released_version: ${{ steps.extract-version.outputs.version }}
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Validate input
+        env:
+          VERSION_SPECIFIER: ${{ github.event.inputs.version_specifier }}
+        run: |
+          VS="${VERSION_SPECIFIER}"
+          if [[ "$VS" =~ ^(patch|minor|major|prepatch|preminor|premajor|prerelease)$ ]]; then
+            echo "✔ bump keyword"
+          elif [[ "$VS" =~ ^v?[0-9]+\.[0-9]+\.[0-9]+([.-][0-9A-Za-z.-]+)?$ ]]; then
+            echo "✔ explicit version"
+          else
+            echo "❌ Invalid version_specifier: '$VS'"
+            exit 1
+          fi
+
+      - name: Release stable version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run release-stable -- --versionSpecifier "${{ github.event.inputs.version_specifier }}"
+
+      - name: Extract released version
+        id: extract-version
+        run: |
+          set -euo pipefail
+          VERSION=$(cat .release-version)
+          if [[ -z "$VERSION" ]]; then exit 1; fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Summary
+        if: success()
+        env:
+          VERSION_SPECIFIER: ${{ github.event.inputs.version_specifier }}
+        run: |
+          echo "## ✅ Stable Release" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version specifier:** \`${VERSION_SPECIFIER}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dist-tag:** \`latest\`" >> $GITHUB_STEP_SUMMARY
+
+  release-beta:
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.beta_version != '' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Release Beta version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run release-beta -- --version "${{ github.event.inputs.beta_version }}"
+
+      - name: Summary
+        if: success()
+        run: |
+          echo "## ✅ Beta Release" >> $GITHUB_STEP_SUMMARY
+          echo "- **Version:** \`${{ github.event.inputs.beta_version }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** \`${{ github.ref_name }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Dist-tag:** \`beta\`" >> $GITHUB_STEP_SUMMARY
+
+  release-canary:
+    name: Release Canary
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    if: |
+      github.ref == 'refs/heads/main' &&
+      github.event_name == 'push'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Release canary version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run release-canary

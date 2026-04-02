@@ -5,6 +5,7 @@
   "scripts": {
     "release-canary": "tsx scripts/release-canary.ts",
     "release-stable": "tsx scripts/release-stable.ts",
+    "release-beta": "tsx scripts/release-beta.ts",
     "local-registry": "npx nx run-many --target=local-registry --all"
   },
   "private": true,
