@@ -3,3 +3,6 @@ export function lib1() {
 }
 
 console.log('hello a')
+console.log('hello a')
+console.log('hello a')
+console.log('hello a')
