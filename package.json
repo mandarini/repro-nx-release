@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "release-canary": "tsx scripts/release-canary.ts",
-    "release-stable": "tsx scripts/release-stable.ts",
-    "release-beta": "tsx scripts/release-beta.ts",
+    "release-canary": "npx tsx scripts/release-canary.ts",
+    "release-stable": "npx tsx scripts/release-stable.ts",
+    "release-beta": "npx tsx scripts/release-beta.ts",
     "local-registry": "npx nx run-many --target=local-registry --all"
   },
   "private": true,
