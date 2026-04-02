@@ -49,6 +49,10 @@ import { getLastStableTag } from './utils';
         ? `${maj}.${min + 1}.0`
         : `${maj}.${min}.${pat + 1}`;
 
+  // Fetch latest tags from remote before computing the canary number to avoid
+  // conflicts if a previous run created a tag that isn't in the local clone yet
+  execSync('git fetch --tags', { stdio: 'inherit' });
+
   // Find the next canary number for this base
   const existingCanaries = execSync(
     `git tag --list 'v${targetBase}-canary.*' --sort=-version:refname`
