@@ -1,3 +1,17 @@
+## 1.3.0 (2026-04-02)
+
+### 🚀 Features
+
+- add log ([#4](https://github.com/mandarini/repro-nx-release/pull/4))
+
+### 🩹 Fixes
+
+- add log again ([#5](https://github.com/mandarini/repro-nx-release/pull/5))
+
+### ❤️ Thank You
+
+- Katerina Skroumpelou @mandarini
+
 # 1.0.0 (2025-09-23)
 
 This was a version bump only for lib3 to align it with other projects, there were no code changes.
