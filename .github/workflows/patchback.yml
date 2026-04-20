@@ -1,0 +1,53 @@
+name: Patchback to main
+
+on:
+  pull_request:
+    types: [closed, labeled]
+    branches: [develop]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  patchback:
+    name: Cherry-pick to main
+    runs-on: ubuntu-latest
+    if: |
+      github.event.pull_request.merged == true &&
+      contains(github.event.pull_request.labels.*.name, 'patchback-main')
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Cherry-pick and open PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          MERGE_SHA: ${{ github.event.pull_request.merge_commit_sha }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          BRANCH="patchback/${PR_NUMBER}"
+          git checkout -b "$BRANCH"
+          git fetch origin "$MERGE_SHA"
+
+          if git cherry-pick "$MERGE_SHA" --no-edit; then
+            git push origin "$BRANCH"
+            gh pr create \
+              --base main \
+              --head "$BRANCH" \
+              --title "[patchback] ${PR_TITLE}" \
+              --body "Cherry-pick of #${PR_NUMBER} to main. Original author: @${PR_AUTHOR}"
+            gh pr edit "$BRANCH" --add-reviewer "$PR_AUTHOR" || true
+          else
+            git cherry-pick --abort || true
+            echo "Cherry-pick conflict — manual resolution needed"
+            exit 1
+          fi

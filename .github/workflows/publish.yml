@@ -2,7 +2,7 @@ name: Publish releases
 
 on:
   push:
-    branches: [main]
+    branches: [develop, main]
     paths-ignore:
       - '*.md'
       - 'docs/**'
@@ -128,14 +128,14 @@ jobs:
           echo "- **Dist-tag:** \`beta\`" >> $GITHUB_STEP_SUMMARY
 
   release-canary:
-    name: Release Canary
+    name: Release Prerelease
     runs-on: ubuntu-latest
     permissions:
       contents: write
       id-token: write
     if: |
-      github.ref == 'refs/heads/main' &&
-      github.event_name == 'push'
+      github.event_name == 'push' &&
+      (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/main')
 
     steps:
       - name: Checkout code
@@ -157,7 +157,15 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Release canary version
+      - name: Release prerelease version
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npm run release-canary
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/develop" ]]; then
+            BASE_VERSION=$(cat .next-base-version | tr -d '[:space:]')
+            echo "Publishing next prerelease (base: ${BASE_VERSION})..."
+            npm run release-canary -- --base-version "$BASE_VERSION" --preid next --tag next
+          else
+            echo "Publishing canary prerelease..."
+            npm run release-canary
+          fi
