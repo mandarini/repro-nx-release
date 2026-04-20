@@ -16,6 +16,8 @@ jobs:
   sync:
     name: Sync main into develop
     runs-on: ubuntu-latest
+    # Skip sync when the push is a patchback merge — that commit already exists on develop
+    if: ${{ !contains(github.event.head_commit.message, '[patchback]') }}
     steps:
       - name: Checkout develop
         uses: actions/checkout@v4
