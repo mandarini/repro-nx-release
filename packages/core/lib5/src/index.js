@@ -4,3 +4,4 @@ console.log('lib5 log');
 console.log('lib5 log');
 console.log('lib5 log');
 console.log('lib5 log');
+console.log('lib5 log');
